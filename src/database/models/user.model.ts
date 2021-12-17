@@ -40,18 +40,6 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   password: string;
 
-  // old
-  @ApiProperty({
-    example: 'true',
-    description: 'Banned or not old',
-    required: false
-  })
-  @Column({
-    type: DataType.BOOLEAN,
-    defaultValue: false
-  })
-  banned: boolean;
-
   // new
   @ApiProperty({
     example: 'true',
