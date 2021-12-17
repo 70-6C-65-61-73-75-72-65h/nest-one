@@ -8,7 +8,7 @@ import { User } from '../database/models/user.model';
 export class UsersService {
   constructor(
     @InjectModel(User) private readonly userRpository: typeof User,
-    private roleService: RolesService,
+    private roleService: RolesService
   ) {}
 
   async createUser(dto: CreateUserDTO) {
@@ -24,7 +24,13 @@ export class UsersService {
   async getUserByEmail(email: string) {
     return await this.userRpository.findOne({
       where: { email },
-      include: { all: true },
+      include: { all: true }
+    });
+  }
+  async getUserById(id: number) {
+    return await this.userRpository.findOne({
+      where: { id },
+      include: { all: true }
     });
   }
 }
