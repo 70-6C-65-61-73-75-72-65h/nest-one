@@ -4,7 +4,7 @@ import {
   Model,
   Column,
   DataType,
-  BelongsToMany,
+  BelongsToMany
 } from 'sequelize-typescript';
 import { Role } from 'src/database/models/roles.model';
 import { UserRoles } from 'src/roles/user-roles.module';
@@ -21,7 +21,7 @@ export class User extends Model<User, UserCreationAttrs> {
     type: DataType.INTEGER,
     unique: true,
     autoIncrement: true,
-    primaryKey: true,
+    primaryKey: true
   })
   id: number;
 
@@ -29,36 +29,49 @@ export class User extends Model<User, UserCreationAttrs> {
   @Column({
     type: DataType.STRING,
     unique: true,
-    allowNull: false,
+    allowNull: false
   })
   email: string;
 
   @ApiProperty({ example: '132323', description: 'user password' })
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: false
   })
   password: string;
 
+  // old
   @ApiProperty({
     example: 'true',
-    description: 'Banned or not',
-    required: false,
+    description: 'Banned or not old',
+    required: false
   })
   @Column({
-    type: DataType.INTEGER,
-    defaultValue: 0,
+    type: DataType.BOOLEAN,
+    defaultValue: false
   })
-  banned: number;
+  banned: boolean;
+
+  // new
+  @ApiProperty({
+    example: 'true',
+    description: 'Banned or not new',
+    required: false
+  })
+  @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: false
+  })
+  isBanned: boolean;
 
   @ApiProperty({
     example: 'Swearing words',
     description: 'Ban reason',
-    required: false,
+    required: false
   })
   @Column({
     type: DataType.STRING,
-    allowNull: true,
+    allowNull: true
   })
   banReason: string;
 
