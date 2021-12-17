@@ -6,7 +6,7 @@ import {
   DataType,
   BelongsToMany,
 } from 'sequelize-typescript';
-import { Role } from 'src/roles/roles.model';
+import { Role } from 'src/database/models/roles.model';
 import { UserRoles } from 'src/roles/user-roles.module';
 
 interface UserCreationAttrs {
@@ -24,29 +24,33 @@ export class User extends Model<User, UserCreationAttrs> {
     primaryKey: true,
   })
   id: number;
+
   @ApiProperty({ example: 'uset@gmail.com', description: 'unique email' })
   @Column({
     type: DataType.STRING,
     unique: true,
     allowNull: false,
   })
-  email: number;
+  email: string;
+
   @ApiProperty({ example: '132323', description: 'user password' })
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   password: string;
+
   @ApiProperty({
     example: 'true',
     description: 'Banned or not',
     required: false,
   })
   @Column({
-    type: DataType.BOOLEAN,
-    defaultValue: false,
+    type: DataType.INTEGER,
+    defaultValue: 0,
   })
   banned: number;
+
   @ApiProperty({
     example: 'Swearing words',
     description: 'Ban reason',
@@ -56,7 +60,7 @@ export class User extends Model<User, UserCreationAttrs> {
     type: DataType.STRING,
     allowNull: true,
   })
-  banReason: number;
+  banReason: string;
 
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];

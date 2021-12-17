@@ -7,8 +7,8 @@ import {
   BelongsToMany,
   ForeignKey,
 } from 'sequelize-typescript';
-import { User } from 'src/users/user.model';
-import { Role } from './roles.model';
+import { User } from 'src/database/models/user.model';
+import { Role } from '../database/models/roles.model';
 
 @Table({ tableName: 'user_roles', createdAt: false, updatedAt: false })
 export class UserRoles extends Model<UserRoles> {

@@ -10,7 +10,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDTO } from 'src/users/dtos/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/user.model';
+import { User } from 'src/database/models/user.model';
 import bcrypt from 'bcryptjs';
 import { bcryptSalt, NetworkErrors } from './constants';
 

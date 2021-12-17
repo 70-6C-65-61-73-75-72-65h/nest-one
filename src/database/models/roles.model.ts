@@ -6,8 +6,8 @@ import {
   DataType,
   BelongsToMany,
 } from 'sequelize-typescript';
-import { User } from 'src/users/user.model';
-import { UserRoles } from './user-roles.module';
+import { User } from 'src/database/models/user.model';
+import { UserRoles } from '../../roles/user-roles.module';
 
 interface RoleCreationAttrs {
   value: string;
@@ -31,7 +31,7 @@ export class Role extends Model<Role, RoleCreationAttrs> {
     unique: true,
     allowNull: false,
   })
-  value: number;
+  value: string;
 
   @ApiProperty({
     example: 'Admin role',
@@ -42,7 +42,7 @@ export class Role extends Model<Role, RoleCreationAttrs> {
     type: DataType.STRING,
     allowNull: false,
   })
-  description: number;
+  description: string;
 
   @BelongsToMany(() => User, () => UserRoles)
   users: User[];

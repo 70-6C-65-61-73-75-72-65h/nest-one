@@ -9,7 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { CreateUserDTO } from 'src/users/dtos/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 import { bcryptSalt, NetworkErrors } from './constants';
-import { User } from 'src/users/user.model';
+import { User } from 'src/database/models/user.model';
 
 @Injectable()
 export class AuthService {
