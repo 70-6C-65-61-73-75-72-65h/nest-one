@@ -3,7 +3,7 @@ import {
   HttpException,
   Injectable,
   HttpStatus,
-  UnauthorizedException,
+  UnauthorizedException
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDTO } from 'src/users/dtos/create-user.dto';
@@ -15,7 +15,7 @@ import { User } from 'src/database/models/user.model';
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
-    private readonly jwtService: JwtService,
+    private readonly jwtService: JwtService
   ) {}
 
   async login(userDTO: CreateUserDTO) {
@@ -24,21 +24,15 @@ export class AuthService {
   }
 
   async registration(userDTO: CreateUserDTO) {
-    const candidate = await this.usersService.getUserByEmail(userDTO.email);
-    if (candidate) {
-      throw new HttpException(
-        NetworkErrors.ACCOUNT_EXISTS,
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+    await this.usersService.checkIfUserWitHSuchEmailExists(userDTO);
     const hashedPassword: string = await bcrypt.hash(
       userDTO.password,
-      bcryptSalt,
+      bcryptSalt
     );
 
     const newUser = await this.usersService.createUser({
       ...userDTO,
-      password: hashedPassword,
+      password: hashedPassword
     });
     return this.generateToken(newUser);
   }
@@ -47,7 +41,7 @@ export class AuthService {
     const payload = {
       email: user.email,
       password: user.password,
-      roles: user.roles,
+      roles: user.roles
     };
     const token = this.jwtService.sign(payload);
 
@@ -64,7 +58,7 @@ export class AuthService {
         ? NetworkErrors.INVALID_EMAIL_OR_PASSWORD
         : !verifiedCreds
         ? NetworkErrors.INVALID_PASSWORD
-        : '',
+        : ''
     });
   }
 }

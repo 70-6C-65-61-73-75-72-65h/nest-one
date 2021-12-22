@@ -4,10 +4,12 @@ import {
   Model,
   Column,
   DataType,
-  BelongsToMany
+  BelongsToMany,
+  HasMany
 } from 'sequelize-typescript';
 import { Role } from 'src/database/models/roles.model';
 import { UserRoles } from 'src/roles/user-roles.module';
+import { Post } from './posts.model';
 
 interface UserCreationAttrs {
   email: string;
@@ -65,4 +67,7 @@ export class User extends Model<User, UserCreationAttrs> {
 
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
+
+  @HasMany(() => Post)
+  posts: Post[];
 }
